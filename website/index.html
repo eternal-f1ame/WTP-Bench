@@ -276,7 +276,7 @@
     <div class="section-label">Getting Started</div>
     <div class="section-title">Evaluate Your Model</div>
     <p class="section-desc">
-        WTP-Bench is lightweight and straightforward. Load the dataset from HuggingFace and run evaluation in minutes.
+        WTP-Bench is lightweight and straightforward. Clone the repo, plug in your model, and run evaluation in minutes.
     </p>
     <div class="code-section">
         <div class="code-header">
@@ -285,32 +285,21 @@
             <div class="code-dot green"></div>
         </div>
         <div class="code-body">
-<pre><span class="kw">from</span> datasets <span class="kw">import</span> load_dataset
-<span class="kw">from</span> tqdm <span class="kw">import</span> tqdm
+<pre><span class="cmt"># Clone the repository</span>
+git clone https://github.com/eternal-f1ame/WTP-Bench.git
+cd WTP-Bench && pip install -r requirements.txt
 
-<span class="cmt"># Load WTP-Bench dataset</span>
-wtp_ds = load_dataset(<span class="str">'aaditya-baranwal/wtp-bench'</span>, split=<span class="str">'test'</span>)
+<span class="cmt"># Run inference with your model</span>
+python src/scripts/vlm_infer_template.py \
+  --input-csv data/metadata.csv \
+  --output-csv predictions/my_model_hq.csv \
+  --prompt <span class="str">"Who's that Pokemon?"</span> \
+  --model-id <span class="str">your-model-id</span> \
+  --base-dir data
 
-<span class="cmt"># Each sample contains: image, pokemon_name, generation, difficulty</span>
-correct = <span class="num">0</span>
-total = <span class="num">0</span>
-
-<span class="kw">for</span> sample <span class="kw">in</span> <span class="fn">tqdm</span>(wtp_ds):
-    image = sample[<span class="str">'image'</span>]
-    ground_truth = sample[<span class="str">'pokemon_name'</span>].lower()
-
-    <span class="cmt"># Your model inference here</span>
-    prompt = <span class="str">"Who's that Pokémon? Identify the Pokémon in this image. "</span> \
-             <span class="str">"Return only the name in curly braces: {name}"</span>
-
-    prediction = <span class="fn">your_model</span>(prompt, image)
-
-    <span class="cmt"># Parse and evaluate</span>
-    <span class="kw">if</span> ground_truth <span class="kw">in</span> prediction.lower():
-        correct += <span class="num">1</span>
-    total += <span class="num">1</span>
-
-<span class="fn">print</span>(<span class="str">f"Accuracy: </span>{<span class="num">100</span> * correct / total:<span class="str">.2f</span>}<span class="str">%"</span>)</pre>
+<span class="cmt"># Evaluate predictions</span>
+PYTHONPATH=src python src/scripts/eval_predictions.py \
+  --pred-csv predictions/my_model_hq.csv</pre>
         </div>
     </div>
 </section>
