@@ -71,7 +71,7 @@ conda activate <choice>-vlm
 export OPENROUTER_API_KEY=<your-api-key>
 ```
 
-### Run Inference -- Open-Weight Models
+### Run Inference
 
 ```bash
 export PYTHONUTF8=1 # to avoid occasional latin decode error in A100s
