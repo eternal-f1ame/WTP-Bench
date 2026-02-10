@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <radialGradient id="shadow" cx="40%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#9b59b6"/>
+      <stop offset="45%" stop-color="#6c3483"/>
+      <stop offset="100%" stop-color="#1a1a2e"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#bb6bd9" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4a1a6b" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="shine" cx="30%" cy="25%" r="25%">
+      <stop offset="0%" stop-color="#d8b4fe" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#9b59b6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <!-- Outer glow -->
+  <circle cx="32" cy="32" r="30" fill="url(#glow)"/>
+  <!-- Main ball -->
+  <circle cx="32" cy="32" r="24" fill="url(#shadow)"/>
+  <!-- Wispy energy arcs -->
+  <path d="M14 28 Q20 18, 32 16 Q38 15, 42 20" fill="none" stroke="#bb6bd9" stroke-width="1.5" opacity="0.5"/>
+  <path d="M48 38 Q44 48, 34 50 Q28 51, 22 46" fill="none" stroke="#8e44ad" stroke-width="1.5" opacity="0.4"/>
+  <path d="M20 42 Q16 34, 18 26" fill="none" stroke="#a855f7" stroke-width="1" opacity="0.3"/>
+  <!-- Highlight -->
+  <circle cx="26" cy="24" r="8" fill="url(#shine)"/>
+  <!-- Inner dark core -->
+  <circle cx="34" cy="34" r="8" fill="#1a1a2e" opacity="0.4"/>
+</svg>

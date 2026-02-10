@@ -32,6 +32,5 @@ export const LEADERBOARD_DATA = [
     { model: "LLaVA 1.5 7B",         masterBall:  1.03, ultraBall:  3.10, greatBall:  5.09, shadowBall:  0.52 },
     { model: "InternVL2 8B",         masterBall:  0.86, ultraBall:  2.76, greatBall:  3.97, shadowBall:  0.34 },
     { model: "Phi-3 Vision 128K",    masterBall:  0.17, ultraBall:  1.03, greatBall:  1.64, shadowBall:  0.00 },
-    { model: "LLaVA-OneVision 0.5B", masterBall:  null, ultraBall:  null, greatBall:  null, shadowBall:  0.09 },
     { model: "InternVL2 1B",         masterBall:  0.09, ultraBall:  0.17, greatBall:  0.26, shadowBall:  0.26 },
 ];
