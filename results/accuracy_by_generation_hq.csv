@@ -1,0 +1,12 @@
+model,tag,gen1,gen2,gen3,gen4,gen5,gen6,gen7,gen8,total
+openai_gpt-4.1-2025-04-14,proprietary,89.0,95.5,95.2,88.5,82.7,51.4,78.8,34.9,79.0
+google_gemini-2.5-pro,proprietary,84.1,90.1,83.6,79.2,80.0,58.7,76.9,64.3,78.2
+google_gemini-2.5-flash,proprietary,75.8,89.2,90.9,80.8,78.4,57.8,75.0,65.1,77.2
+claude-sonnet-4-5-20250929,anthropic,64.3,88.3,66.7,71.5,69.7,57.8,63.5,38.8,65.1
+openai_gpt-4o-mini,proprietary,50.7,72.1,55.8,58.5,50.8,49.5,33.7,20.2,49.3
+x-ai_grok-4-fast,proprietary,49.8,42.3,38.2,51.5,50.3,45.0,60.6,38.0,46.9
+claude-haiku-4-5-20251001,anthropic,37.9,36.0,22.4,30.0,23.8,18.3,35.6,13.2,27.6
+qwen_qwen3-vl-4b-instruct,legacy,21.1,21.6,12.7,15.4,8.1,12.8,8.7,3.1,13.4
+qwen_qwen3-vl-8b-instruct,legacy,13.7,20.7,7.9,18.5,13.5,14.7,9.6,4.7,12.8
+AVG_PROPRIETARY,,64.5,73.4,64.7,65.7,62.2,48.4,60.6,39.2,60.5
+AVG_OPEN_WEIGHT,,8.6,5.8,2.2,4.2,1.8,3.4,1.8,0.9,3.9
