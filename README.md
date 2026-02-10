@@ -28,7 +28,7 @@ WTP-Bench evaluates 27 vision-language models across **1,160 Pokémon** spanning
 | 5 | GPT-4o-mini | 49.3% | 62.0% | 68.7% | 29.0% |
 | -- | Best Open-Weight (Qwen3-VL 4B) | 13.4% | 18.5% | 22.4% | 2.2% |
 
-Full leaderboard with all 27 models available on the [project website](https://eternal-f1ame.github.io/WTP-Bench/).
+Full leaderboard with all 27 models available on the [WTP - Bench](https://eternal-f1ame.github.io/WTP-Bench/)
 
 ## Key Findings
 
@@ -50,36 +50,53 @@ Full leaderboard with all 27 models available on the [project website](https://e
 
 ## Quick Start
 
+### Prerequisites
+- 1 A100 (80GB) Cuda >= 12.4 (Hardware)
+- Python 3.11 and conda
+- `legacy` models work with ``transformers=5.x.x`` and `remote` work with ``transformers==4.5x.x``
+- /envs have respective conda envs (run openrouter with remote-vlm env)
+
 ### Installation
 
 ```bash
 git clone https://github.com/eternal-f1ame/WTP-Bench.git
 cd WTP-Bench
-pip install -r requirements.txt
+conda env create -f envs/<choice>-vlm.yaml
+conda activate <choice>-vlm
+```
+
+### API Keys
+
+```bash
+export OPENROUTER_API_KEY=<your-api-key>
 ```
 
 ### Run Inference -- Open-Weight Models
 
 ```bash
-python src/scripts/vlm_infer_template.py \
-  --input-csv data/metadata.csv \
-  --output-csv predictions/my_model_hq.csv \
-  --prompt "Who's that Pokemon?" \
-  --model-id Qwen/Qwen3-VL-4B-Instruct \
-  --base-dir data
+export PYTHONUTF8=1 # to avoid occasional latin decode error in A100s
+chmod +x run_all_models.sh
+./run_all_models.sh # starts inference on all the models remote, legacy and proprietary
+
+# Use the optional MODELS env variable to choose which models to infer on or which models to excule
+# eg.
+MODELS=remote ./run_all_models.sh # all remote models
+MODELS=!remote ./run_all_models.sh # all but remote models
+MODELS=legacy ./run_all_models.sh # all legacy models
+
+MODELS=florence-vl ./run_all_models.sh # all florence-vl models
+MODELS=!gemma-3 ./run_all_models.sh # all but gemma-3 models
+MODELS=proprietary,phi-3 ./run_all_models.sh # all proprietary + all phi-3 models
 ```
 
-### Run Inference -- Proprietary Models (via OpenRouter)
+### Testing (Debug)
 
 ```bash
-export OPENROUTER_API_KEY="your-key-here"
+chmod +x ./test_model.sh
+./test_model.sh <hf/openrouter id of the model> 3 # runs 3 samples
 
-python src/scripts/vlm_infer_openrouter.py \
-  --input-csv data/metadata.csv \
-  --output-csv predictions/gpt5_hq.csv \
-  --prompt "Who's that Pokemon?" \
-  --model-id openai/gpt-5 \
-  --base-dir data
+# eg.
+./test_model.sh Qwen/Qwen2.5-VL-7B-Instruct 3
 ```
 
 ### Evaluate Predictions
@@ -89,11 +106,10 @@ PYTHONPATH=src python src/scripts/eval_predictions.py \
   --pred-csv predictions/my_model_hq.csv
 ```
 
-### Batch Run All Models
+### Configs
 
-```bash
-python src/scripts/run_all_models.py --config-dir configs/legacy
-```
+- Make changes in the /configs to adjust different parameters
+- We used batches of 64 (for openweights) and 100 output token budget across all models
 
 ## Project Structure
 
@@ -121,17 +137,7 @@ WTP-Bench/
 └── requirements.txt
 ```
 
-## Dataset
-
-Images are not included in this repository. The dataset is available on HuggingFace:
-
-```python
-from datasets import load_dataset
-
-wtp = load_dataset('aaditya-baranwal/wtp-bench', split='test')
-```
-
-Each sample contains: `image`, `pokemon_name`, `generation`, `form`, and `difficulty`.
+Each sample contains: `image`, `pokemon_name`, `generation` and `form`.
 
 ## Citation
 
