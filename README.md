@@ -1,87 +1,158 @@
-# Who's That Pokémon Bench (VLM)
+# WTP-Bench: Who's That Pokémon?
 
-Minimal benchmark scaffold for silhouette-style Pokémon identification.
+**A Visual Recognition Benchmark for Vision-Language Models**
 
-## Data layout
+*Can frontier multimodal models identify Pokémon from official artwork — and from silhouettes alone?*
 
+WTP-Bench evaluates 27 vision-language models across **1,160 Pokémon** spanning all 8 generations, including regional forms, Mega Evolutions, and Gigantamax variants. Inspired by the iconic anime segment, models face both high-quality artwork and pure silhouettes in a zero-shot "Who's That Pokémon?" challenge.
+
+> **Aaditya Baranwal** — University of Central Florida, CRCV
+
+---
+
+## Highlights
+
+- **1,160 Pokémon** — the most comprehensive VLM recognition benchmark covering base forms, Megas, Gigantamax, Alolan, Galarian, Hisuian, and Paldean variants
+- **Dual evaluation modes** — official artwork (HQ) and silhouette-only (Shadow Ball) to isolate shape understanding from color/texture reliance
+- **Tiered scoring** — Master Ball (exact form match), Ultra Ball (correct species), Great Ball (correct evolutionary line) — revealing where models actually fail
+- **27 models benchmarked** — 7 proprietary (GPT-4.1, Gemini 2.5 Pro/Flash, Claude 4.5 Sonnet/Haiku, Grok 4, GPT-4o-mini) and 20 open-weight (Qwen, LLaVA, InternVL, Ovis, PaLIGemma, Florence-VL, and more)
+
+## Key Results
+
+| | Model | Master Ball | Ultra Ball | Great Ball | Shadow Ball |
+|---|---|---|---|---|---|
+| 1 | GPT-4.1 | **79.0%** | 84.2% | 84.7% | 49.1% |
+| 2 | Gemini 2.5 Pro | 78.2% | **88.1%** | **91.4%** | 23.0% |
+| 3 | Gemini 2.5 Flash | 77.2% | 83.0% | 86.2% | 42.6% |
+| 4 | Claude 4.5 Sonnet | 65.1% | 79.2% | 81.9% | **53.4%** |
+| 5 | GPT-4o-mini | 49.3% | 62.0% | 68.7% | 29.0% |
+| — | Best Open-Weight (Qwen3-VL 4B) | 13.4% | 18.5% | 22.4% | 2.2% |
+
+Full leaderboard with all 27 models available on the [project website](#website).
+
+## Key Findings
+
+1. **Proprietary models dominate** — the top 7 models are all proprietary; the best open-weight model (Qwen3-VL 4B) scores only 13.4% exact match
+2. **Silhouettes humble everyone** — GPT-4.1 drops from 79% to 49% without color; Claude 4.5 Sonnet is the only model exceeding 50% on silhouettes
+3. **Massive Gen 1 hallucination bias** — when open-weight models guess wrong, 57–79% of guesses are Gen 1 Pokémon (only 19.6% of the dataset)
+4. **Form blindness** — most models score near 0% on Mega/Gmax/regional forms despite decent base form accuracy; 162 Pokémon get zero correct across all models
+5. **Generation gap** — proprietary models average 73% on Gen 2 but only 39% on Gen 8; open-weight models collapse after Gen 1
+
+## Evaluation Tiers
+
+| Tier | Criteria | Example |
+|---|---|---|
+| **Master Ball** | Exact match — species, form, variant | `charizard-mega-x` |
+| **Ultra Ball** | Correct species, wrong/missing form | Predicted `vulpix` for `vulpix-alola` |
+| **Great Ball** | Same evolutionary line | Predicted `charmeleon` for `charizard` |
+| **Shadow Ball** | Any tier, but on silhouettes only | Shape-only recognition |
+
+## Quick Start
+
+### Installation
+
+```bash
+git clone https://github.com/eternal-f1ame/WTP-Bench.git
+cd WTP-Bench
+pip install -r requirements.txt
 ```
-data/
-  data/imagesHQ            # source HQ images
-  silhouette/          # per-Pokémon silhouette folders
-  metadata.csv         # image_path -> label (relative paths)
-  extra/               # optional auxiliary data
-```
 
-### Zero-shot evaluation (no train/val splits)
+### Run Inference — Open-Weight Models
 
-We evaluate VLMs directly on the silhouettes with the prompt:
-
-"Who's that Pokemon?"
-
-Use the inference template to generate a predictions CSV (paths are resolved relative to `--base-dir`):
-
-```
+```bash
 python src/scripts/vlm_infer_template.py \
   --input-csv data/metadata.csv \
-  --output-csv data/predictions_vlm.csv \
+  --output-csv predictions/my_model_hq.csv \
   --prompt "Who's that Pokemon?" \
   --model-id Qwen/Qwen3-VL-4B-Instruct \
   --base-dir data
 ```
 
-Model lists are tracked in [configs/vlm_models.yaml](configs/vlm_models.yaml).
+### Run Inference — Proprietary Models (via OpenRouter)
 
-### Proprietary VLMs (GPT/Claude/Grok/Gemini via OpenRouter)
+```bash
+export OPENROUTER_API_KEY="your-key-here"
 
-```
 python src/scripts/vlm_infer_openrouter.py \
   --input-csv data/metadata.csv \
-  --output-csv data/predictions_proprietary.csv \
+  --output-csv predictions/gpt5_hq.csv \
   --prompt "Who's that Pokemon?" \
-  --model-id openai/gpt-4o-mini \
+  --model-id openai/gpt-5 \
   --base-dir data
 ```
 
-Set your API key via environment variables:
-`OPENROUTER_API_KEY`.
+### Evaluate Predictions
 
-### Evaluate predictions
-
-```
+```bash
 PYTHONPATH=src python src/scripts/eval_predictions.py \
-  --pred-csv data/predictions_vlm.csv
+  --pred-csv predictions/my_model_hq.csv
 ```
 
-## Folder structure
+### Batch Run All Models
 
-- `configs/` model lists and configs
-- `data/` dataset files and silhouettes
-- `src/bench/` shared utilities
-- `src/scripts/` inference + evaluation scripts
+```bash
+python src/scripts/run_all_models.py --config-dir configs/legacy
+```
 
-## Notes
+## Project Structure
 
-- This scaffold does **not** ship Pokémon images.
-- Please confirm any dataset licensing before public release.
+```
+WTP-Bench/
+├── configs/
+│   ├── legacy/          # Open-weight model configs (22 models)
+│   ├── proprietary/     # Proprietary model configs via OpenRouter
+│   └── remote/          # Remote/API-served open models
+├── data/
+│   ├── imagesHQ/        # Official artwork (1,160 images)
+│   ├── silhouette/      # Silhouette versions
+│   ├── metadata.csv     # Image paths, labels, generations, forms
+│   ├── pokemon_types.json
+│   └── evolution_families.json
+├── predictions/         # Model prediction CSVs
+├── results/
+│   ├── eval_hq.csv      # HQ leaderboard
+│   ├── eval_silhouette.csv
+│   └── analysis_full.txt
+├── src/
+│   ├── bench/           # Shared utilities (label matching, I/O)
+│   └── scripts/         # Inference and evaluation scripts
+├── website/             # Project website with interactive leaderboard
+└── requirements.txt
+```
 
-## Leaderboard
+## Website
 
-See [LEADERBOARD.md](LEADERBOARD.md).
+The `website/` directory contains a self-contained project page with an interactive leaderboard, model response examples, and visualization of findings. To run locally:
 
-## Benchmark card
+```bash
+cd website && python3 -m http.server 8000
+```
 
-See [BENCHMARK_CARD.md](BENCHMARK_CARD.md).
+## Dataset
 
-## Results schema
+Images are not included in this repository. The dataset is available on HuggingFace:
 
-See [RESULTS_SCHEMA.md](RESULTS_SCHEMA.md).
+```python
+from datasets import load_dataset
 
-## Metadata CSV format
+wtp = load_dataset('aaditya-baranwal/wtp-bench', split='test')
+```
 
-Columns (recommended):
-- `image_path`: **relative path** to the image (no absolute paths)
-- `label`: canonical Pokémon name (used for evaluation)
-- `gen`: integer generation (1-9)
-- `form`: optional form name (e.g., Alolan, Galarian)
+Each sample contains: `image`, `pokemon_name`, `generation`, `form`, and `difficulty`.
 
-If no metadata is provided, labels are inferred from filenames.
+## Citation
+
+```bibtex
+@misc{baranwal2026wtpbench,
+  title        = {WTP-Bench: Who's That Pok\'{e}mon? A Visual Recognition
+                  Benchmark for Multimodal Models},
+  author       = {Baranwal, Aaditya},
+  year         = {2026},
+  howpublished = {\url{https://github.com/eternal-f1ame/WTP-Bench}},
+  note         = {University of Central Florida, CRCV}
+}
+```
+
+## License
+
+This benchmark is released for **non-commercial academic research** purposes only. Pokémon and all related names, images, and assets are trademarks and © of Nintendo, Game Freak, and The Pokémon Company. This project is not affiliated with or endorsed by any of these entities.
