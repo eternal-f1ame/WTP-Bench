@@ -1,0 +1,21 @@
+/* ---- CSS VARIABLES ---- */
+:root {
+    --bg-primary: #0a0a0f;
+    --bg-secondary: #111118;
+    --bg-card: #16161f;
+    --bg-card-hover: #1c1c28;
+    --text-primary: #e8e8f0;
+    --text-secondary: #8888a0;
+    --text-muted: #55556a;
+    --accent-red: #ff3b3b;
+    --accent-blue: #3b82f6;
+    --accent-yellow: #facc15;
+    --accent-green: #22c55e;
+    --accent-purple: #a855f7;
+    --accent-red-glow: rgba(255, 59, 59, 0.15);
+    --accent-yellow-glow: rgba(250, 204, 21, 0.1);
+    --border: #222233;
+    --border-light: #2a2a3d;
+    --pokeball-red: #ee1515;
+    --pokeball-dark: #c41010;
+}

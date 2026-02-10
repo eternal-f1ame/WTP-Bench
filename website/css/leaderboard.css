@@ -1,0 +1,87 @@
+/* ---- LEADERBOARD ---- */
+.leaderboard-wrapper {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.leaderboard-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.leaderboard-header h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.leaderboard-header .last-updated {
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.leaderboard-table thead th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.01);
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.leaderboard-table thead th:hover {
+    color: var(--text-secondary);
+}
+
+.leaderboard-table tbody tr {
+    transition: background 0.15s;
+}
+
+.leaderboard-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.leaderboard-table tbody td {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.82rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 500;
+}
+
+.leaderboard-table tbody td:first-child {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.rank-cell {
+    width: 50px;
+    text-align: center;
+}
+
+.rank-1 { color: var(--accent-yellow) !important; }
+.rank-2 { color: #c0c0c0 !important; }
+.rank-3 { color: #cd7f32 !important; }
+
+.score-highlight {
+    color: var(--accent-green);
+    font-weight: 700;
+}

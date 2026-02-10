@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WTP-Bench: Who's That Pokémon Benchmark</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/hero.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/showcase.css">
+    <link rel="stylesheet" href="css/leaderboard.css">
+    <link rel="stylesheet" href="css/code.css">
+    <link rel="stylesheet" href="css/findings.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+<!-- ============================
+     NAV
+     ============================ -->
+<nav>
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">WTP<span>-Bench</span></a>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#showcase">Examples</a></li>
+            <li><a href="#leaderboard">Leaderboard</a></li>
+            <li><a href="#findings">Findings</a></li>
+            <li><a href="#code">Code</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- ============================
+     HERO
+     ============================ -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="hero-badge">
+            <span class="dot"></span>
+            New Benchmark
+        </div>
+
+        <h1>
+            <span class="highlight">Who's That Pokémon?</span><br>
+            A Visual Recognition Benchmark for <span class="sub-highlight">Multimodal Models</span>
+        </h1>
+
+        <p class="hero-subtitle">
+            Can frontier vision-language models identify Pokémon from official artwork and silhouettes? WTP-Bench evaluates visual recognition across 1,160 Pokémon — including regional forms, Mega Evolutions, and Gigantamax forms — from exact form matching to the iconic "Who's That Pokémon?" shadow challenge.
+        </p>
+
+        <p class="hero-authors">
+            <strong>Aaditya Baranwal</strong><sup>1</sup><br>
+            <sup>1</sup>University of Central Florida, CRCV
+        </p>
+
+        <div class="hero-links">
+            <a href="#" class="btn btn-primary">💻 GitHub</a>
+            <a href="#" class="btn btn-secondary">🤗 Dataset</a>
+            <a href="#" class="btn btn-secondary">📊 Leaderboard</a>
+        </div>
+
+        <!-- Stats rendered by JS from HERO_STATS in main.js -->
+        <div class="stats-bar" id="heroStats"></div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================
+     ABOUT
+     ============================ -->
+<section id="about" class="reveal">
+    <div class="section-label">Introduction</div>
+    <div class="section-title">Why Pokémon?</div>
+    <p class="section-desc">
+        Pokémon recognition requires fine-grained visual understanding — distinguishing between 1,160 entries across 8 generations — including regional forms, Mega Evolutions, and Gigantamax variants — that share similar body shapes, color palettes, and evolutionary lineages. WTP-Bench scores models across four evaluation tiers, from exact form identification to the ultimate silhouette challenge.
+    </p>
+    <div class="intro-grid">
+        <div class="intro-card">
+            <div class="card-icon">🟣</div>
+            <h3>Master Ball — Exact Catch</h3>
+            <p>The model nails it — correct species, form, regional variant, and all. Distinguishing Alolan Vulpix from Kantonian Vulpix or Mega Charizard X from Y. A perfect throw.</p>
+        </div>
+        <div class="intro-card">
+            <div class="card-icon">🟡</div>
+            <h3>Ultra Ball — Right Species</h3>
+            <p>The model identifies the correct Pokémon by name but misses the specific form, region, or variant. It said "Vulpix" but didn't specify Alolan — close, but not a critical capture.</p>
+        </div>
+        <div class="intro-card">
+            <div class="card-icon">🔵</div>
+            <h3>Great Ball — Evo Line</h3>
+            <p>The answer lands in the right evolutionary family — guessing Charmeleon when it's Charizard, or Pichu instead of Pikachu. The model sees the family resemblance but picks the wrong stage.</p>
+        </div>
+        <div class="intro-card">
+            <div class="card-icon">👤</div>
+            <h3>Shadow Ball — WTP Mode</h3>
+            <p>The star of the show. Inspired by the iconic anime segment, models face pure silhouettes with all color stripped away. Only shape and outline remain — the true "Who's That Pokémon?" test.</p>
+        </div>
+    </div>
+</section>
+
+<div class="pokeball-divider">
+    <span class="line"></span>
+    <div class="pokeball-icon"></div>
+    <span class="line"></span>
+</div>
+
+<!-- ============================
+     SHOWCASE CAROUSEL
+     Cards rendered by JS from
+     SHOWCASE_DATA in main.js
+     ============================ -->
+<section id="showcase" class="showcase-section reveal">
+    <div class="section-label">Examples</div>
+    <div class="section-title">Model Responses</div>
+    <p class="section-desc">
+        See how frontier models respond to WTP-Bench queries across both visual modes — hover to pause the scroll.
+    </p>
+
+    <div class="carousel-row">
+        <div class="carousel-row-label">Shadow Ball — Silhouette Mode</div>
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrackShadow">
+                <!-- populated by main.js -->
+            </div>
+        </div>
+    </div>
+
+    <div class="carousel-row">
+        <div class="carousel-row-label">HQ Mode — Official Artwork</div>
+        <div class="carousel-container">
+            <div class="carousel-track carousel-track-reverse" id="carouselTrackHQ">
+                <!-- populated by main.js -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================
+     LEADERBOARD
+     Rows rendered by JS from
+     LEADERBOARD_DATA in main.js
+     ============================ -->
+<section id="leaderboard" class="reveal">
+    <div class="section-label">Leaderboard</div>
+    <div class="section-title">Model Rankings</div>
+    <p class="section-desc">
+        Accuracy scores across WTP-Bench evaluation tiers — from exact form matching on official artwork to the silhouette-only Shadow Ball challenge.
+    </p>
+    <div class="leaderboard-wrapper">
+        <div class="leaderboard-header">
+            <h3>🏆 WTP-Bench Leaderboard</h3>
+            <span class="last-updated">Updated Feb 2026</span>
+        </div>
+        <table class="leaderboard-table">
+            <thead>
+                <tr>
+                    <th class="rank-cell">#</th>
+                    <th>Model</th>
+                    <th>Master Ball ↓</th>
+                    <th>Ultra Ball</th>
+                    <th>Great Ball</th>
+                    <th>Shadow Ball</th>
+                </tr>
+            </thead>
+            <tbody id="leaderboardBody">
+                <!-- populated by main.js -->
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<div class="pokeball-divider">
+    <span class="line"></span>
+    <div class="pokeball-icon"></div>
+    <span class="line"></span>
+</div>
+
+<!-- ============================
+     FINDINGS
+     ============================ -->
+<section id="findings" class="reveal">
+    <div class="section-label">Key Findings</div>
+    <div class="section-title">What We Discovered</div>
+    <p class="section-desc">
+        Our evaluation across 27 vision-language models reveals systematic patterns in how VLMs handle Pokémon recognition.
+    </p>
+
+    <!-- Row 1: three text findings -->
+    <div class="findings-grid">
+        <div class="finding-card">
+            <div class="finding-number">Finding 01</div>
+            <h3>Proprietary Models Dominate</h3>
+            <p>The top 7 models are all proprietary — GPT-4.1 leads Master Ball at 79%. The best open-weight model (Qwen3-VL 4B) manages only 13.4%. But relaxing to Great Ball, Gemini 2.5 Pro reaches 91.4%, showing most errors are form/variant confusion rather than total misidentification.</p>
+        </div>
+        <div class="finding-card">
+            <div class="finding-number">Finding 02</div>
+            <h3>Silhouettes Humble Everyone</h3>
+            <p>Stripping color devastates performance. GPT-4.1 drops from 79% to 49%, and Gemini 2.5 Pro plummets from 78% to 23%. Only Claude 4.5 Sonnet actually leads on silhouettes at 53%, flipping the HQ leaderboard on its head.</p>
+        </div>
+        <div class="finding-card">
+            <div class="finding-number">Finding 03</div>
+            <h3>Claude's Shadow Ball Surprise</h3>
+            <p>Claude 4.5 Sonnet ranks 4th on HQ images (65%) but takes the crown on silhouettes (53%) — the only model where shadow performance exceeds half. Claude Haiku 4.5 shows near-identical scores on both modes (~27%), suggesting a uniquely robust shape understanding.</p>
+        </div>
+    </div>
+
+    <!-- Row 2: Generation accuracy chart -->
+    <div class="findings-chart-section">
+        <div class="finding-card finding-card-wide">
+            <div class="finding-number">Finding 04</div>
+            <h3>Gen 8 Is the Frontier — Gen 2 Is Solved</h3>
+            <p>Proprietary models average 73.4% on Gen 2 but only 39.2% on Gen 8 — a <strong>34-point gap</strong>. Gen 6 is a surprising weak spot at 48.4%, likely due to many visually similar small Pokémon. Open-weight models collapse after Gen 1, falling to under 2% from Gen 3 onward.</p>
+            <div class="chart-container" id="genAccuracyChart"></div>
+        </div>
+    </div>
+
+    <!-- Row 3: two medium findings -->
+    <div class="findings-grid findings-grid-2col">
+        <div class="finding-card">
+            <div class="finding-number">Finding 05</div>
+            <h3>Open-Weight Gen 1 Hallucination</h3>
+            <p>When open-weight models guess wrong, <strong>57% of guesses on HQ</strong> and <strong>79% on silhouettes</strong> are Gen 1 Pokémon — despite Gen 1 being only 19.6% of the dataset. These models have heavily memorized iconic Pokémon like Pikachu and Charizard and default to them when uncertain. Proprietary models show only mild bias (~24%).</p>
+            <div class="chart-container" id="gen1BiasChart"></div>
+        </div>
+        <div class="finding-card">
+            <div class="finding-number">Finding 06</div>
+            <h3>Form-Blind Models</h3>
+            <p>Most models are <strong>nearly blind to variant forms</strong>. Claude 4.5 Sonnet hits 82.8% on base forms but 2.1% on Megas and 0% on Gigantamax. Only GPT-4.1 handles Megas (87.5%) and regional forms (63.6%). 162 Pokémon get <strong>zero correct across all 27 models</strong> — nearly all are variant forms like Pikachu caps and Deoxys formes.</p>
+            <div class="chart-container" id="formAccuracyChart"></div>
+        </div>
+    </div>
+
+    <!-- Row 4: Type accuracy -->
+    <div class="findings-chart-section">
+        <div class="finding-card finding-card-wide">
+            <div class="finding-number">Finding 07</div>
+            <h3>Fire Types Are Easiest, Electric Hardest</h3>
+            <p>Among proprietary models, Fire-type Pokémon are identified most accurately at 65.7%, while Electric types trail at 51.0% — a 14.7-point spread. Dragon (51.5%) and Bug (53.0%) types also prove difficult, possibly because these categories contain many visually similar species. The type ranking stays consistent between proprietary and open-weight models.</p>
+            <div class="chart-container" id="typeAccuracyChart"></div>
+        </div>
+    </div>
+
+    <!-- Row 5: Silhouette surprises -->
+    <div class="findings-grid findings-grid-2col">
+        <div class="finding-card">
+            <div class="finding-number">Finding 08</div>
+            <h3>Color-Dependent Recognition</h3>
+            <p>Some Pokémon are <strong>100% on HQ but 0% as silhouettes</strong> — Magmortar's fiery details vanish into a generic blob. Slugma, Galvantula, and Alcremie all drop 85+ points. These Pokémon are recognized by color and texture, not shape — exposing a fundamental reliance on surface-level features.</p>
+        </div>
+        <div class="finding-card">
+            <div class="finding-number">Finding 09</div>
+            <h3>Shape-Advantaged Pokémon</h3>
+            <p>A few Pokémon are <strong>better recognized as silhouettes</strong> than as full artwork. Absol jumps from 85.7% to 100% — its distinctive scythe-horn outline is unmistakable. Scizor and Mega Charizard X also gain +14 points, suggesting their silhouettes are more iconic than their colored forms.</p>
+        </div>
+    </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ============================
+     CODE
+     ============================ -->
+<section id="code" class="reveal">
+    <div class="section-label">Getting Started</div>
+    <div class="section-title">Evaluate Your Model</div>
+    <p class="section-desc">
+        WTP-Bench is lightweight and straightforward. Load the dataset from HuggingFace and run evaluation in minutes.
+    </p>
+    <div class="code-section">
+        <div class="code-header">
+            <div class="code-dot red"></div>
+            <div class="code-dot yellow"></div>
+            <div class="code-dot green"></div>
+        </div>
+        <div class="code-body">
+<pre><span class="kw">from</span> datasets <span class="kw">import</span> load_dataset
+<span class="kw">from</span> tqdm <span class="kw">import</span> tqdm
+
+<span class="cmt"># Load WTP-Bench dataset</span>
+wtp_ds = load_dataset(<span class="str">'aaditya-baranwal/wtp-bench'</span>, split=<span class="str">'test'</span>)
+
+<span class="cmt"># Each sample contains: image, pokemon_name, generation, difficulty</span>
+correct = <span class="num">0</span>
+total = <span class="num">0</span>
+
+<span class="kw">for</span> sample <span class="kw">in</span> <span class="fn">tqdm</span>(wtp_ds):
+    image = sample[<span class="str">'image'</span>]
+    ground_truth = sample[<span class="str">'pokemon_name'</span>].lower()
+
+    <span class="cmt"># Your model inference here</span>
+    prompt = <span class="str">"Who's that Pokémon? Identify the Pokémon in this image. "</span> \
+             <span class="str">"Return only the name in curly braces: {name}"</span>
+
+    prediction = <span class="fn">your_model</span>(prompt, image)
+
+    <span class="cmt"># Parse and evaluate</span>
+    <span class="kw">if</span> ground_truth <span class="kw">in</span> prediction.lower():
+        correct += <span class="num">1</span>
+    total += <span class="num">1</span>
+
+<span class="fn">print</span>(<span class="str">f"Accuracy: </span>{<span class="num">100</span> * correct / total:<span class="str">.2f</span>}<span class="str">%"</span>)</pre>
+        </div>
+    </div>
+</section>
+
+<div class="pokeball-divider">
+    <span class="line"></span>
+    <div class="pokeball-icon"></div>
+    <span class="line"></span>
+</div>
+
+<!-- ============================
+     CITATION
+     ============================ -->
+<section class="reveal">
+    <div class="section-label">Citation</div>
+    <div class="section-title">Cite WTP-Bench</div>
+    <div class="code-section" style="margin-top: 1.5rem;">
+        <div class="code-header">
+            <div class="code-dot red"></div>
+            <div class="code-dot yellow"></div>
+            <div class="code-dot green"></div>
+        </div>
+        <div class="code-body">
+<pre><span class="cmt">@misc{baranwal2026wtpbench,
+  title        = {WTP-Bench: Who's That Pok\'{e}mon? A Visual
+                  Recognition Benchmark for Multimodal Models},
+  author       = {Baranwal, Aaditya},
+  year         = {2026},
+  howpublished = {\url{https://github.com/aaditya-baranwal/wtp-bench}},
+  note         = {University of Central Florida, CRCV}
+}</span></pre>
+        </div>
+    </div>
+</section>
+
+<!-- ============================
+     FOOTER
+     ============================ -->
+<footer>
+    <p>WTP-Bench © 2026 · <a href="#">Aaditya Baranwal</a> · University of Central Florida, CRCV</p>
+    <p style="margin-top: 0.5rem; font-size: 0.7rem;">Pokémon and all related names, images, and assets are trademarks and © of Nintendo, Game Freak, and The Pokémon Company. All Pokémon images used in this benchmark belong to their respective rights holders. This project is not affiliated with or endorsed by Nintendo, Game Freak, or The Pokémon Company. All materials are used under fair use for non-commercial academic research purposes only.</p>
+</footer>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

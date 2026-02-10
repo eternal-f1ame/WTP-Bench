@@ -1,0 +1,13 @@
+/* ---- FOOTER ---- */
+footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+footer a {
+    color: var(--accent-yellow);
+    text-decoration: none;
+}

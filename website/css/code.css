@@ -1,0 +1,44 @@
+/* ---- CODE BLOCK ---- */
+.code-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.code-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(255, 255, 255, 0.01);
+}
+
+.code-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.code-dot.red    { background: #ff5f57; }
+.code-dot.yellow { background: #febc2e; }
+.code-dot.green  { background: #28c840; }
+
+.code-body {
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.code-body pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+}
+
+.code-body .kw  { color: var(--accent-purple); }
+.code-body .str { color: var(--accent-green); }
+.code-body .fn  { color: var(--accent-blue); }
+.code-body .cmt { color: var(--text-muted); }
+.code-body .num { color: var(--accent-yellow); }
