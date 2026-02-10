@@ -28,7 +28,7 @@ WTP-Bench evaluates 27 vision-language models across **1,160 Pokémon** spanning
 | 5 | GPT-4o-mini | 49.3% | 62.0% | 68.7% | 29.0% |
 | — | Best Open-Weight (Qwen3-VL 4B) | 13.4% | 18.5% | 22.4% | 2.2% |
 
-Full leaderboard with all 27 models available on the [project website](#website).
+Full leaderboard with all 27 models available on the [project website](https://eternal-f1ame.github.io/WTP-Bench/).
 
 ## Key Findings
 
@@ -118,14 +118,6 @@ WTP-Bench/
 │   └── scripts/         # Inference and evaluation scripts
 ├── website/             # Project website with interactive leaderboard
 └── requirements.txt
-```
-
-## Website
-
-The `website/` directory contains a self-contained project page with an interactive leaderboard, model response examples, and visualization of findings. To run locally:
-
-```bash
-cd website && python3 -m http.server 8000
 ```
 
 ## Dataset
