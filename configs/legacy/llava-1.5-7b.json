@@ -1,0 +1,7 @@
+{
+  "model_id": "llava-hf/llava-1.5-7b-hf",
+  "dtype": "bfloat16",
+  "device": "cuda",
+  "max_new_tokens": 100,
+  "enabled": true
+}

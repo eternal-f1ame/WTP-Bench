@@ -1,0 +1,7 @@
+{
+  "model_id": "microsoft/Phi-3.5-vision-instruct",
+  "dtype": "bfloat16",
+  "device": "cuda",
+  "max_new_tokens": 100,
+  "enabled": true
+}

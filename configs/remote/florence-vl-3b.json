@@ -1,0 +1,7 @@
+{
+  "model_id": "jiuhai/florence-vl-3b-sft",
+  "dtype": "bfloat16",
+  "device": "cuda",
+  "max_new_tokens": 100,
+  "enabled": true
+}

@@ -1,0 +1,7 @@
+{
+  "model_id": "llava-hf/llava-onevision-qwen2-0.5b-ov-hf",
+  "dtype": "bfloat16",
+  "device": "auto",
+  "max_new_tokens": 100,
+  "enabled": true
+}

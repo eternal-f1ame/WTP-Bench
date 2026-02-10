@@ -1,0 +1,8 @@
+{
+  "model_id": "HuggingFaceM4/idefics2-8b",
+  "dtype": "bfloat16",
+  "device": "cuda",
+  "max_new_tokens": 100,
+  "batch_size": 1,
+  "enabled": false
+}

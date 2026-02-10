@@ -1,0 +1,7 @@
+{
+  "model_id": "HuggingFaceM4/Idefics3-8B-Llama3",
+  "dtype": "bfloat16",
+  "device": "auto",
+  "max_new_tokens": 100,
+  "enabled": false
+}

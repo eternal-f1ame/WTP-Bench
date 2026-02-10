@@ -1,0 +1,7 @@
+{
+  "model_id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+  "dtype": "bfloat16",
+  "device": "auto",
+  "max_new_tokens": 100,
+  "enabled": true
+}

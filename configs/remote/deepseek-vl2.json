@@ -1,0 +1,9 @@
+{
+  "model_id": "deepseek-ai/deepseek-vl2",
+  "dtype": "bfloat16",
+  "device": "auto",
+  "max_new_tokens": 100,
+  "batch_size": 32,
+  "trust_remote_code": true,
+  "enabled": false
+}

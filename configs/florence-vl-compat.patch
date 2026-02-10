@@ -1,0 +1,118 @@
+diff --git a/llava/__pycache__/__init__.cpython-311.pyc b/llava/__pycache__/__init__.cpython-311.pyc
+index 69c8240..fbf4472 100644
+Binary files a/llava/__pycache__/__init__.cpython-311.pyc and b/llava/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/llava/__pycache__/constants.cpython-311.pyc b/llava/__pycache__/constants.cpython-311.pyc
+index 438dae6..514ce1f 100644
+Binary files a/llava/__pycache__/constants.cpython-311.pyc and b/llava/__pycache__/constants.cpython-311.pyc differ
+diff --git a/llava/__pycache__/conversation.cpython-311.pyc b/llava/__pycache__/conversation.cpython-311.pyc
+index 8a7ba5b..3e6759e 100644
+Binary files a/llava/__pycache__/conversation.cpython-311.pyc and b/llava/__pycache__/conversation.cpython-311.pyc differ
+diff --git a/llava/__pycache__/mm_utils.cpython-311.pyc b/llava/__pycache__/mm_utils.cpython-311.pyc
+index d1c685a..74f5070 100644
+Binary files a/llava/__pycache__/mm_utils.cpython-311.pyc and b/llava/__pycache__/mm_utils.cpython-311.pyc differ
+diff --git a/llava/model/__pycache__/__init__.cpython-311.pyc b/llava/model/__pycache__/__init__.cpython-311.pyc
+index d12db4d..969d4e8 100644
+Binary files a/llava/model/__pycache__/__init__.cpython-311.pyc and b/llava/model/__pycache__/__init__.cpython-311.pyc differ
+diff --git a/llava/model/__pycache__/builder.cpython-311.pyc b/llava/model/__pycache__/builder.cpython-311.pyc
+index da32b75..e1d20f5 100644
+Binary files a/llava/model/__pycache__/builder.cpython-311.pyc and b/llava/model/__pycache__/builder.cpython-311.pyc differ
+diff --git a/llava/model/__pycache__/llava_arch.cpython-311.pyc b/llava/model/__pycache__/llava_arch.cpython-311.pyc
+index be80b5b..95dfa7a 100644
+Binary files a/llava/model/__pycache__/llava_arch.cpython-311.pyc and b/llava/model/__pycache__/llava_arch.cpython-311.pyc differ
+diff --git a/llava/model/builder.py b/llava/model/builder.py
+index 10d827b..25c8645 100644
+--- a/llava/model/builder.py
++++ b/llava/model/builder.py
+@@ -23,7 +23,10 @@ from transformers import AutoTokenizer, AutoModelForCausalLM, AutoConfig, BitsAn
+ import torch
+ from llava.model import *
+ from llava.constants import DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN
+-from llava.train.train import smart_tokenizer_and_embedding_resize
++try:
++    from llava.train.train import smart_tokenizer_and_embedding_resize
++except ImportError:
++    smart_tokenizer_and_embedding_resize = None
+ 
+ 
+ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, load_4bit=False, device_map="auto", device="cuda", use_flash_attn=False, **kwargs):
+@@ -43,7 +46,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
+             bnb_4bit_quant_type='nf4'
+         )
+     else:
+-        kwargs['torch_dtype'] = torch.float16
++        kwargs.setdefault('torch_dtype', torch.float16)
+ 
+     if use_flash_attn:
+         kwargs['attn_implementation'] = 'flash_attention_2'
+@@ -168,7 +171,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
+                 model = AutoModelForCausalLM.from_pretrained(model_path, low_cpu_mem_usage=True, **kwargs)
+ 
+     image_processor = None
+-    if 'llava' in model_name.lower():
++    if 'llava' in model_name.lower() or 'florence' in model_name.lower():
+         mm_use_im_start_end = getattr(model.config, "mm_use_im_start_end", False)
+         mm_use_im_patch_token = getattr(model.config, "mm_use_im_patch_token", True)
+         if mm_use_im_patch_token:
+@@ -181,7 +184,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
+         if not vision_tower.is_loaded:
+             vision_tower.load_model(device_map=device_map)
+         if device_map != 'auto':
+-            vision_tower.to(device=device_map, dtype=torch.float16)
++            vision_tower.to(device=device_map, dtype=kwargs.get('torch_dtype', torch.float16))
+         image_processor = vision_tower.image_processor
+ 
+     if hasattr(model.config, "max_sequence_length"):
+diff --git a/llava/model/language_model/__pycache__/llava_llama.cpython-311.pyc b/llava/model/language_model/__pycache__/llava_llama.cpython-311.pyc
+index aec3e54..b23c001 100644
+Binary files a/llava/model/language_model/__pycache__/llava_llama.cpython-311.pyc and b/llava/model/language_model/__pycache__/llava_llama.cpython-311.pyc differ
+diff --git a/llava/model/language_model/__pycache__/llava_mistral.cpython-311.pyc b/llava/model/language_model/__pycache__/llava_mistral.cpython-311.pyc
+index a321d60..699c3d4 100644
+Binary files a/llava/model/language_model/__pycache__/llava_mistral.cpython-311.pyc and b/llava/model/language_model/__pycache__/llava_mistral.cpython-311.pyc differ
+diff --git a/llava/model/language_model/__pycache__/llava_mpt.cpython-311.pyc b/llava/model/language_model/__pycache__/llava_mpt.cpython-311.pyc
+index dc90f6a..0a81fdc 100644
+Binary files a/llava/model/language_model/__pycache__/llava_mpt.cpython-311.pyc and b/llava/model/language_model/__pycache__/llava_mpt.cpython-311.pyc differ
+diff --git a/llava/model/language_model/__pycache__/llava_phi3.cpython-311.pyc b/llava/model/language_model/__pycache__/llava_phi3.cpython-311.pyc
+index 3ca416b..fc0cb2b 100644
+Binary files a/llava/model/language_model/__pycache__/llava_phi3.cpython-311.pyc and b/llava/model/language_model/__pycache__/llava_phi3.cpython-311.pyc differ
+diff --git a/llava/model/language_model/llava_phi3.py b/llava/model/language_model/llava_phi3.py
+index 2e8f91f..b0321ee 100644
+--- a/llava/model/language_model/llava_phi3.py
++++ b/llava/model/language_model/llava_phi3.py
+@@ -70,6 +70,7 @@ class LlavaPhiForCausalLM(Phi3ForCausalLM, LlavaMetaForCausalLM):
+         image_sizes: Optional[List[List[int]]] = None,
+         return_dict: Optional[bool] = None,
+         cache_position = None,  # Required for inference
++        **kwargs,
+     ) -> Union[Tuple, CausalLMOutputWithPast]:
+ 
+         if inputs_embeds is None:
+diff --git a/llava/model/multimodal_encoder/__pycache__/builder.cpython-311.pyc b/llava/model/multimodal_encoder/__pycache__/builder.cpython-311.pyc
+index d5aba54..6f489a4 100644
+Binary files a/llava/model/multimodal_encoder/__pycache__/builder.cpython-311.pyc and b/llava/model/multimodal_encoder/__pycache__/builder.cpython-311.pyc differ
+diff --git a/llava/model/multimodal_encoder/__pycache__/clip_encoder.cpython-311.pyc b/llava/model/multimodal_encoder/__pycache__/clip_encoder.cpython-311.pyc
+index 76a93f7..0dfe6af 100644
+Binary files a/llava/model/multimodal_encoder/__pycache__/clip_encoder.cpython-311.pyc and b/llava/model/multimodal_encoder/__pycache__/clip_encoder.cpython-311.pyc differ
+diff --git a/llava/model/multimodal_encoder/florence_encoder.py b/llava/model/multimodal_encoder/florence_encoder.py
+index f9a9bfa..ea4d8de 100644
+--- a/llava/model/multimodal_encoder/florence_encoder.py
++++ b/llava/model/multimodal_encoder/florence_encoder.py
+@@ -51,6 +51,10 @@ class FlorenceVisionTower(nn.Module):
+         ]).to(device=self.device)
+ 
+ 
++        # Expand images to match the number of task prompts
++        if images.shape[0] == 1 and task_ids.shape[0] > 1:
++            images = images.expand(task_ids.shape[0], -1, -1, -1)
++
+         with torch.no_grad():
+             generated_ids, image_feature, encoder_last_hidden_state = self.vision_tower.generate(
+                 input_ids=task_ids,
+diff --git a/llava/model/multimodal_projector/__pycache__/builder.cpython-311.pyc b/llava/model/multimodal_projector/__pycache__/builder.cpython-311.pyc
+index a3e8666..ae5c72a 100644
+Binary files a/llava/model/multimodal_projector/__pycache__/builder.cpython-311.pyc and b/llava/model/multimodal_projector/__pycache__/builder.cpython-311.pyc differ
+diff --git a/llava/train/__pycache__/llava_trainer.cpython-311.pyc b/llava/train/__pycache__/llava_trainer.cpython-311.pyc
+index 68459cd..91e8677 100644
+Binary files a/llava/train/__pycache__/llava_trainer.cpython-311.pyc and b/llava/train/__pycache__/llava_trainer.cpython-311.pyc differ
+diff --git a/llava/train/__pycache__/train.cpython-311.pyc b/llava/train/__pycache__/train.cpython-311.pyc
+index fd9126e..e36310c 100644
+Binary files a/llava/train/__pycache__/train.cpython-311.pyc and b/llava/train/__pycache__/train.cpython-311.pyc differ

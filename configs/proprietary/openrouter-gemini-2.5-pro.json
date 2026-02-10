@@ -1,0 +1,8 @@
+{
+  "backend": "openrouter",
+  "model_id": "google/gemini-2.5-pro",
+  "max_new_tokens": 100,
+  "temperature": 0,
+  "reasoning_effort": "low",
+  "enabled": false
+}

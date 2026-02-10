@@ -1,0 +1,7 @@
+{
+  "model_id": "mistral-community/pixtral-12b",
+  "dtype": "bfloat16",
+  "device": "auto",
+  "max_new_tokens": 100,
+  "enabled": true
+}
