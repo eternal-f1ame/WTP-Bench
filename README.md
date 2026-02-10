@@ -147,4 +147,6 @@ Each sample contains: `image`, `pokemon_name`, `generation`, `form`, and `diffic
 
 ## License
 
-This benchmark is released for **non-commercial academic research** purposes only. Pokémon and all related names, images, and assets are trademarks and © of Nintendo, Game Freak, and The Pokémon Company. This project is not affiliated with or endorsed by any of these entities.
+This project is licensed under the [Apache License 2.0](LICENSE).
+
+Pokémon and all related names, images, and assets are trademarks and © of Nintendo, Game Freak, and The Pokémon Company. This project is not affiliated with or endorsed by any of these entities.
