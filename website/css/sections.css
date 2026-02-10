@@ -1,0 +1,84 @@
+/* ---- SECTIONS — SHARED ---- */
+section {
+    padding: 6rem 5vw;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent-red);
+    margin-bottom: 0.75rem;
+}
+
+.section-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+}
+
+.section-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    max-width: 70ch;
+    line-height: 1.8;
+    margin-bottom: 3rem;
+}
+
+/* ---- DIVIDERS ---- */
+.section-divider {
+    width: 100%;
+    width: 90%;
+    margin: 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-light), transparent);
+}
+
+.pokeball-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem 0;
+}
+
+.pokeball-divider .line {
+    flex: 1;
+    max-width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-light));
+}
+
+.pokeball-divider .line:last-child {
+    background: linear-gradient(90deg, var(--border-light), transparent);
+}
+
+.pokeball-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(to bottom,
+        var(--pokeball-red) 45%,
+        var(--bg-primary) 45%,
+        var(--bg-primary) 55%,
+        #fff 55%);
+    border: 2px solid var(--border-light);
+    position: relative;
+}
+
+.pokeball-icon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 8px;
+    height: 8px;
+    background: var(--bg-primary);
+    border: 2px solid var(--border-light);
+    border-radius: 50%;
+}

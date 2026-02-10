@@ -1,0 +1,12 @@
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+    .intro-grid        { grid-template-columns: 1fr; }
+    .findings-grid     { grid-template-columns: 1fr; }
+    .findings-grid-2col { grid-template-columns: 1fr; }
+    .stats-bar         { gap: 1.5rem; flex-wrap: wrap; }
+    .nav-links         { display: none; }
+    .leaderboard-table { font-size: 0.75rem; }
+    .showcase-card     { width: 320px; }
+    .form-chart-grid   { font-size: 0.55rem; }
+    .form-chart-grid   { grid-template-columns: 80px repeat(5, 1fr); }
+}
