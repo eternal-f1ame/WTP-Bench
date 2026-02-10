@@ -33,7 +33,7 @@
 
 .leaderboard-table thead th {
     padding: 0.85rem 1.25rem;
-    text-align: left;
+    text-align: center;
     font-size: 0.7rem;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -64,12 +64,18 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.03);
     font-family: 'JetBrains Mono', monospace;
     font-weight: 500;
+    text-align: center;
 }
 
 .leaderboard-table tbody td:first-child {
     font-family: 'Outfit', sans-serif;
     font-weight: 600;
     color: var(--text-primary);
+}
+
+.leaderboard-table tbody td:nth-child(2),
+.leaderboard-table thead th:nth-child(2) {
+    text-align: left;
 }
 
 .rank-cell {
@@ -84,4 +90,23 @@
 .score-highlight {
     color: var(--accent-green);
     font-weight: 700;
+}
+
+.leaderboard-table thead th.shadow-heading {
+    color: #c119db;
+    font-weight: 900;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    white-space: normal;
+    max-width: 7.5rem;
+}
+
+.leaderboard-table tbody td.shadow-highlight {
+    background: rgba(220, 38, 38, 0.18);
+    color: #fca5a5;
+    font-weight: 600;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
 }

@@ -14,7 +14,7 @@ export const LEADERBOARD_DATA = [
     { model: "Claude Haiku 4.5",     masterBall: 27.59, ultraBall: 35.78, greatBall: 42.07, shadowBall: 27.41 },
     // Open-weight
     { model: "Qwen3-VL 4B",          masterBall: 13.36, ultraBall: 18.45, greatBall: 22.41, shadowBall:  3.10 },
-    { model: "Qwen3-VL 8B",          masterBall: 12.76, ultraBall: 17.16, greatBall: 19.74, shadowBall:  null },
+    { model: "Qwen3-VL 8B",          masterBall: 12.76, ultraBall: 17.16, greatBall: 19.74, shadowBall:  3.10 },
     { model: "Pixtral 12B",          masterBall:  7.16, ultraBall:  9.74, greatBall: 13.28, shadowBall:  1.12 },
     { model: "Qwen2-VL 7B",          masterBall:  6.47, ultraBall:  9.22, greatBall: 12.67, shadowBall:  1.29 },
     { model: "Ovis2.5 9B",           masterBall:  5.95, ultraBall:  9.31, greatBall: 13.88, shadowBall:  2.16 },

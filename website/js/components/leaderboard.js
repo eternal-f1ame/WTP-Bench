@@ -26,7 +26,7 @@ export function renderLeaderboard() {
                 <td${scoreClass}>${fmt(row.masterBall)}</td>
                 <td>${fmt(row.ultraBall)}</td>
                 <td>${fmt(row.greatBall)}</td>
-                <td>${fmt(row.shadowBall)}</td>
+                <td class="shadow-highlight">${fmt(row.shadowBall)}</td>
             </tr>`;
         })
         .join("");
