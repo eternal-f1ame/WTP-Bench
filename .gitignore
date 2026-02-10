@@ -1,0 +1,33 @@
+# Data & images (hosted separately)
+configs/anthropic/
+
+# API keys
+CLAUDE_API_KEY
+OPENROUTER_API_KEY
+*.key
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editor & tools
+.vscode/
+.idea/
+.claude/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
