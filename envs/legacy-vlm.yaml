@@ -1,4 +1,4 @@
-name: vlmbench
+name: legacy-vlm
 channels:
   - defaults
 dependencies:
